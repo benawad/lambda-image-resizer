@@ -1,0 +1,16 @@
+{
+  "name": "image-handler",
+  "main": "index.js",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "node-fetch": "^2.6.0",
+    "sharp": "^0.25.4"
+  },
+  "scripts": {
+    "build:init": "rm -rf package-lock.json && rm -rf node_modules",
+    "build:zip": "zip -rq image-handler.zip .",
+    "upload": "aws lambda update-function-code --function-name image-resizer --zip-file fileb://image-handler.zip",
+    "build": "npm run build:init && npm install --arch=x64 --platform=linux --production && npm run build:zip && npm run upload"
+  }
+}
